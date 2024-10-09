@@ -1,0 +1,30 @@
+<launch>
+    <node name="usb_camera" pkg="usb_cam" type="usb_cam_node" output="screen">
+        <param name="video_device" value="/dev/video0" />
+        <param name="image_width" value="640" />
+        <param name="image_height" value="480" />
+        <!-- <param name="pixel_format" value="mjpeg" /> -->        <!-- mjpeg, yuyv, uyvy -->
+        <!-- <param name="io_method" value="mmap"/> -->        <!-- mmap, read, userptr -->
+        <param name="camera_frame_id" value="usb_camera" />
+        <!-- <param name="framerate" value="30" /> 0-255 -->
+        <!-- <param name="contrast" value="32" /> 0-255 -->
+        <!-- <param name="brightness" value="32" /> 0-255 -->
+        <!-- <param name="saturation" value="32" /> 0-255 -->
+        <!-- <param name="sharpness" value="22" /> 0-255 -->
+        <!-- <param name="autofocus" value="false" />   -->
+        <!-- <param name="focus" value="51" /> 0 at infinity -->
+        <param name="camera_info_url" type="string" value="package://apriltag_ros/config/usb_camera.yaml" />
+        <param name="camera_name" value="usb_camera" />
+
+    </node>
+
+    <node ns="usb_camera" name="image_proc" pkg="image_proc" type="image_proc" respawn="false" output="screen">
+    </node>
+
+    <!-- <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+        <remap from="image" to="/usb_camera/image_raw"/>
+        <param name="autosize" value="true" />
+    </node> -->
+
+</launch>
+  

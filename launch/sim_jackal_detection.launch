@@ -1,0 +1,49 @@
+<launch>
+  <!-- set to value="gdbserver localhost:10000" for remote debugging -->
+  <arg name="launch_prefix" default="" />
+
+  <!-- configure camera input -->
+  <arg name="top_camera" default="/top_camera" />
+  <arg name="left_camera" default="/left_camera" />
+  <arg name="right_camera" default="/right_camera" />
+  <arg name="image_topic" default="image_raw" />
+  <arg name="queue_size" default="1" />
+
+  <group name="apriltag_detect">
+
+    <node ns="top_camera" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="apriltag_detect_top" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)">
+      <remap from="image_rect" to="$(arg top_camera)/$(arg image_topic)" />
+      <remap from="camera_info" to="$(arg top_camera)/camera_info" />
+      <param name="publish_tag_detections_image" type="bool" value="true" />
+      <param name="queue_size" type="int" value="$(arg queue_size)" />
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_settings.yaml"/>
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_tags.yaml"/>
+    </node>
+    
+    <node name="apriltag_to_vizmarker" pkg="humantech_utils" type="apriltag_to_vizmarker.py">
+      <param name="marker_frame" value="odom"/>
+      <param name="tag_detections" value="/top_camera/tag_detections"/>
+      <param name="tag_markers" value="/top_camera/tag_markers"/>
+    </node>
+
+    <node ns="left_camera" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="apriltag_detect_left" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)">
+      <remap from="image_rect" to="$(arg left_camera)/$(arg image_topic)" />
+      <remap from="camera_info" to="$(arg left_camera)/camera_info" />
+      <param name="publish_tag_detections_image" type="bool" value="true" />
+      <param name="queue_size" type="int" value="$(arg queue_size)" />
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_settings.yaml"/>
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_tags.yaml"/>
+    </node>
+
+    <node ns="right_camera" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="apriltag_detect_right" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)">
+      <remap from="image_rect" to="$(arg right_camera)/$(arg image_topic)" />
+      <remap from="camera_info" to="$(arg right_camera)/camera_info" />
+      <param name="publish_tag_detections_image" type="bool" value="true" />
+      <param name="queue_size" type="int" value="$(arg queue_size)" />
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_settings.yaml"/>
+      <rosparam command="load" file="$(find apriltag_ros)/config/jackal/sim_tags.yaml"/>
+    </node>
+    
+  </group>
+
+</launch>

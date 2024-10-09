@@ -1,0 +1,55 @@
+standalone_tags:
+  [
+    # { id: 0, size: 0.085 },
+    # { id: 1, size: 0.085 },
+    # { id: 2, size: 0.085 },
+
+    { id: 1, size: 0.125 },
+    { id: 2, size: 0.075 },
+    { id: 3, size: 0.050 },
+
+    { id: 11, size: 0.125 },
+    { id: 12, size: 0.075 },
+    { id: 13, size: 0.050 },
+
+    { id: 21, size: 0.125 },
+    { id: 22, size: 0.075 },
+    { id: 23, size: 0.050 },
+
+    { id: 31, size: 0.125 },
+    { id: 32, size: 0.075 },
+    { id: 33, size: 0.050 },
+
+    { id: 41, size: 0.125 },
+    { id: 42, size: 0.075 },
+    { id: 43, size: 0.050 },
+
+    { id: 51, size: 0.125 },
+    { id: 52, size: 0.075 },
+    { id: 53, size: 0.050 },
+
+    { id: 61, size: 0.125 },
+    { id: 62, size: 0.075 },
+    { id: 63, size: 0.050 },
+
+    { id: 71, size: 0.125 },
+    { id: 72, size: 0.075 },
+    { id: 73, size: 0.050 },
+
+    { id: 81, size: 0.125 },
+    { id: 82, size: 0.075 },
+    { id: 83, size: 0.050 },
+
+    { id: 91, size: 0.125 },
+    { id: 92, size: 0.075 },
+    { id: 93, size: 0.050 },
+
+    { id: 100, size: 0.125 },
+  ]
+
+# standalone_bulk_tags:
+#   id_start: 0
+#   id_end: 100
+#   sizes: [0.125, 0.075, 0.050]
+
+tag_bundles: []

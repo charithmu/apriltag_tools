@@ -1,0 +1,34 @@
+<launch>
+
+  <arg name="device_name" value="/dev/video4" />
+  <arg name="publish_urdf" value="true" />
+  <arg name="camera_name" value="zed" />
+  <arg name="camera_model" value="zed2i" />
+
+  <!-- launch the ZED camera driver -->
+  <include file="$(find zed_cpu_ros)/launch/zed_cpu_ros.launch">
+    <arg name="device_name" value="/dev/video4" />
+    <arg name="publish_urdf" value="true" />
+    <arg name="camera_name" value="zed" />
+    <arg name="camera_model" value="zed2i" />
+  </include>
+
+  <!-- configure camera input -->
+  <arg name="input_camera_name" default="/$(arg camera_name)/left" />
+  <arg name="image_topic" default="image_rect" />
+  <arg name="queue_size" default="5" />
+
+  <!-- apriltag_ros continuous detection node -->
+  <node ns="$(arg camera_name)" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="aptag_cont_node" clear_params="true" output="screen">
+    <remap from="image_rect" to="$(arg input_camera_name)/$(arg image_topic)" />
+    <remap from="camera_info" to="$(arg input_camera_name)/camera_info" />
+    <remap from="tag_detections_image" to="$(arg input_camera_name)/detection_image"/>
+
+    <param name="publish_tag_detections_image" type="bool" value="true" />
+    <param name="queue_size" type="int" value="$(arg queue_size)" />
+    <!-- load parameters (incl. tag family, tags, etc.) -->
+    <rosparam command="load" file="$(find apriltag_ros)/config/jackal/real_settings.yaml"/>
+    <rosparam command="load" file="$(find apriltag_ros)/config/jackal/real_tags.yaml"/>
+  </node>
+
+</launch>
